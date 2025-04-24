@@ -49,8 +49,8 @@ func (rr *RecipientRequest) validate() error {
 	if rr.Address == "" {
 		return errors.New("address must be provided")
 	}
-	if !strkey.IsValidEd25519PublicKey(rr.Address) {
-		return errors.New("address is not a valid Stellar public key")
+	if !strkey.IsValidEd25519PublicKey(rr.Address) && !strkey.IsValidContractAddress(rr.Address) {
+		return errors.New("address is not a valid Stellar public key or contract address")
 	}
 
 	if rr.Chain != "" && rr.Chain != StellarChainCode {
